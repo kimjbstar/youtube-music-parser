@@ -50,6 +50,7 @@ module.exports.handler = async (event, context) => {
         .contents[1].videoSecondaryInfoRenderer.metadataRowContainer
         .metadataRowContainerRenderer.rows;
     let index = -1;
+
     const musics = metadataRows.reduce((result, row) => {
       if (row.metadataRowRenderer === undefined) {
         return result;
@@ -59,7 +60,12 @@ module.exports.handler = async (event, context) => {
         result.push({});
         index++;
       }
+      if (result[index] === undefined) {
+        return result;
+      }
+
       const content = row.metadataRowRenderer.contents[0];
+
       let value = content.runs ? content.runs[0].text : content.simpleText;
       if (content.runs) {
         result[index][key + "Link"] =

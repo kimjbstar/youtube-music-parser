@@ -70,7 +70,7 @@ module.exports.handler = async (event, context) => {
   }
   const key = link.match(youtubeLinkRegex)[1];
 
-  const aaaaaa = await handler({
+  return await handler({
     pathParameters: { key: key },
   });
 };
