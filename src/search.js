@@ -3,14 +3,13 @@ const { handler } = require(".");
 
 module.exports.handler = async (event, context) => {
   let keyword = "";
-  console.log(event);
+
   try {
     if (event === undefined) {
       throw Error();
     }
     keyword = event.pathParameters.keyword;
   } catch (e) {
-    console.log(e);
     return {
       statusCode: 404,
       headers: {
@@ -26,7 +25,7 @@ module.exports.handler = async (event, context) => {
   //www.youtube.com/results?search_query=%EC%95%84%EC%9D%B4%EC%9C%A0+%EC%97%90%EC%9E%87
 
   const url = "https://www.youtube.com/results?search_query=" + keyword;
-  console.log(url);
+
   const browser = await chromium.puppeteer.launch({
     executablePath: await chromium.executablePath,
     args: chromium.args,
@@ -40,7 +39,7 @@ module.exports.handler = async (event, context) => {
     const thumbnailTag = document.querySelector("a#thumbnail");
     return thumbnailTag.href;
   });
-  console.log(link);
+
   await browser.close();
 
   // https://www.youtube.com/watch?v=CPXmqfu-9vs
@@ -74,5 +73,4 @@ module.exports.handler = async (event, context) => {
   const aaaaaa = await handler({
     pathParameters: { key: key },
   });
-  console.log(aaaaaa);
 };
