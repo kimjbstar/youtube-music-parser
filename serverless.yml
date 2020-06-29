@@ -1,0 +1,23 @@
+service: youtubeMusicParser
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 1024
+  timeout: 30
+  region: ap-northeast-2
+functions:
+  start:
+    handler: src/index.handler
+    events:
+      - http:
+          path: start/{key}
+          method: get
+          cors: true
+  search:
+    handler: src/search.handler
+    events:
+      - http:
+          path: search/{keyword}
+          method: get
+          cors: true
